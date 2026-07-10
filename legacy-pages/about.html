@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem('luvio-theme');
+    const theme = savedTheme || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body && document.body.setAttribute('data-theme', theme);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Luvio Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo" aria-label="Luvio Labs home">
+      <img src="assests/Lockup Horizontal - Color on Dark.png" alt="Luvio Labs" class="logo-img logo-img-lockup">
+      <img src="assests/Mark - Gradient.png" alt="Luvio Labs" class="logo-img logo-img-mark">
+    </a>
+    <ul class="nav-links"><li><a href="index.html" class="">Home</a></li>
+<li><a href="services.html" class="">Services</a></li>
+<li><a href="work.html" class="">Work</a></li>
+<li><a href="about.html" class="active">About</a></li>
+<li><a href="blogs.html" class="">Blogs</a></li>
+<li><a href="contact.html" class="">Contact</a></li>
+<li><a href="careers.html" class="">Careers</a></li></ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2x72QaNcN_HMzss85moSMFndIvRyNmczgcgCTWAfUFm8T0OdQCsGdwB8azt-wm2_hlDrJsXL6y" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm">Book Consultation</a>
+      <button class="nav-toggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-split">
+    <div class="reveal">
+      <span class="eyebrow"><span class="dot"></span>Partnership First</span>
+      <h1 style="margin-top:20px;">A Growth Partner,<br><span class="grad-text">Not Just a Vendor</span></h1>
+      <p class="lead">Most agencies build and leave. We build to grow. Luvio Labs is the bridge between world-class engineering and sustainable revenue growth.</p>
+      <div class="trust-row">
+        <div class="avatar-stack">
+          <span style="background:#8b5cf6;">AR</span>
+          <span style="background:#5b7cfa;">SC</span>
+          <span style="background:#f472b6;">MT</span>
+        </div>
+        <div class="trust-text">
+          <div class="stars"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span></div>
+          <span>Trusted by 50+ Global Teams</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" alt="Our team collaborating on strategy and growth">
+    </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container problem-grid">
+    <div class="quote-card reveal">
+      <div>
+        <blockquote>&ldquo;We saw companies failing not because of their product, but because the gap between building and selling was too wide.&rdquo;</blockquote>
+        <cite>- The Founders</cite>
+      </div>
+    </div>
+    <div class="problem-text reveal">
+      <h2>The Problem We Solve</h2>
+      <p>For years, we watched founders struggle with <b style="color:#fff;">fragmented agencies</b>. One group would build a beautiful app, another would try to market it, and a third would manage the infrastructure. Nothing talked to each other.</p>
+      <p>Data was lost, momentum died, and capital was wasted. We knew there had to be a better way.</p>
+      <div class="highlight-box">
+        <b>The Unified Model:</b> Luvio Labs was born from a simple thesis - engineering and growth are two sides of the same coin. We don't just ship code; we build the engine that drives your revenue.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="padding-top:0;">
+  <div class="container grid-2">
+    <div class="card reveal">
+      <div class="icon-tile tile-purple"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span></div>
+      <h3 style="font-size:22px; margin-bottom:14px;">Our Mission</h3>
+      <p>To build scalable products and grow real revenue for the next generation of industry leaders. We measure success by our clients' bottom line, not just lines of code.</p>
+    </div>
+    <div class="card reveal">
+      <div class="icon-tile tile-blue"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span></div>
+      <h3 style="font-size:22px; margin-bottom:14px;">Our Vision</h3>
+      <p>To make world-class technology and strategic growth expertise accessible globally, democratizing the tools needed to disrupt legacy industries.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Built on Foundation</h2>
+      <p>Our core values aren't slogans on a wall - they're the filters we use for every decision we make.</p>
+    </div>
+    <div class="values-grid reveal">
+      <div class="card"><div class="icon-tile tile-purple"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="7" width="10" height="10" rx="1"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 1v2M15 1v2M9 21v2M15 21v2M1 9h2M1 15h2M21 9h2M21 15h2"/></svg></span></div><h4>Engineering Rigor</h4><p>We don't cut corners. Quality isn't a luxury; it's our standard for every feature we ship.</p></div>
+      <div class="card"><div class="icon-tile tile-blue"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div><h4>Transparency</h4><p>No black boxes. You have real-time access to our work, our wins, and our challenges.</p></div>
+      <div class="card"><div class="icon-tile tile-pink"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2a10 10 0 1 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.4-.3-.4-.5-.9-.5-1.4 0-1.1.9-2 2-2h2.3c1.5 0 2.7-1.2 2.7-2.7C22 6.9 17.5 2 12 2z"/></svg></span></div><h4>Speed</h4><p>In SaaS, the fastest learner wins. We iterate quickly to find your market edge.</p></div>
+      <div class="card"><div class="icon-tile tile-blue"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span></div><h4>Outcomes</h4><p>We value results over activity. If it doesn't move the needle, we don't build it.</p></div>
+      <div class="card"><div class="icon-tile tile-amber"><span class="icon-wrap "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></span></div><h4>Craft</h4><p>We take pride in the details. From API structure to UI micro-interactions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="padding-top:0;">
+  <div class="container">
+    <div class="team-head reveal">
+      <div>
+        <h2>The Minds Behind the Tech</h2>
+        <p>A global team of engineers, growth hackers, and product designers.</p>
+      </div>
+      <a href="careers.html" style="color:#b8a6ff; font-size:14px; font-weight:600;">Join our team &rarr;</a>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card" role="button" tabindex="0" data-name="Mr. Janitha" data-role="Head of Technical Side" data-quote="Technology should feel seamless, reliable, and built to create real momentum for the people using it.">
+        <div class="team-card-inner">
+          <div class="team-card-face team-card-front">
+            <div class="team-photo"><img src="/assests/mr janitha.png" alt="Portrait of Mr. Janitha"></div>
+            <h4>Mr Janitha</h4>
+            <span>Owner & Technical Lead</span>
+          </div>
+          <div class="team-card-face team-card-back">
+            <h4>Mr Janitha</h4>
+            <span>Owner & Technical Lead </span>
+            <p>“Technology should feel seamless, reliable, and built to create real momentum for the people using it.”</p>
+          </div>
+        </div>
+      </div>
+      <div class="team-card" role="button" tabindex="0" data-name="Mr. Punsara" data-role="Head of Operations" data-quote="Strong operations turn ambitious ideas into consistent delivery and calm, confident execution.">
+        <div class="team-card-inner">
+          <div class="team-card-face team-card-front">
+            <div class="team-photo"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Portrait of Mr. Punsara"></div>
+            <h4>Mr Punsara</h4>
+            <span>Head of Operations</span>
+          </div>
+          <div class="team-card-face team-card-back">
+            <h4>Mr Punsara</h4>
+            <span>Head of Operations</span>
+            <p>“Strong operations turn ambitious ideas into consistent delivery and calm, confident execution.”</p>
+          </div>
+        </div>
+      </div>
+      <div class="team-card" role="button" tabindex="0" data-name="Mr. Imran" data-role="Head of Marketing" data-quote="Great marketing is about clarity, connection, and making the right story impossible to ignore.">
+        <div class="team-card-inner">
+          <div class="team-card-face team-card-front">
+            <div class="team-photo"><img src="/assests/Mr imran.png" alt="Portrait of Mr. Imran"></div>
+            <h4>Mr Imran</h4>
+            <span>Head of Marketing</span>
+          </div>
+          <div class="team-card-face team-card-back">
+            <h4>Mr Imran</h4>
+            <span>Head of Marketing</span>
+            <p>“Great marketing is about clarity, connection, and making the right story impossible to ignore.”</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo" aria-label="Luvio Labs home">
+          <img src="assests/Lockup Horizontal - Color on Dark.png" alt="Luvio Labs" class="footer-logo-img logo-img-lockup">
+          <img src="assests/Mark - Gradient.png" alt="Luvio Labs" class="footer-logo-img logo-img-mark">
+        </a>
+        <p>Leading global partner for high-performance software, AI automation, and strategic growth.</p>
+        <div class="footer-social">
+          <a class="icon-btn" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.9 8.75 22 11 22 14.4V21h-4v-5.6c0-1.34-.02-3.06-1.86-3.06-1.87 0-2.16 1.46-2.16 2.96V21H9z"/></svg></a>
+          <a class="icon-btn" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.61-3.37-1.2-3.37-1.2-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.36-2.22-.26-4.56-1.13-4.56-5.03 0-1.11.39-2.02 1.03-2.73-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.71 1.03 1.62 1.03 2.73 0 3.91-2.35 4.77-4.58 5.02.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+          <a class="icon-btn" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">IT Solutions</a></li>
+          <li><a href="services.html">Business Consultancy</a></li>
+          <li><a href="services.html">Digital Marketing</a></li>
+          <li><a href="services.html">Investment Match-Making</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="work.html">Our Work</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Insights on AI and growth sent to your inbox.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="email@example.com" required>
+          <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 12 21 3l-6 18-4-8-9-1z"/></svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 Luvio Labs. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.team-card[data-name]');
+
+    if (!cards.length) return;
+
+    const toggleCard = (card) => {
+      cards.forEach((item) => {
+        if (item !== card) item.classList.remove('is-flipped');
+      });
+      card.classList.toggle('is-flipped');
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => toggleCard(card));
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleCard(card);
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

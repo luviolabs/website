@@ -37,7 +37,7 @@ type BlogItem = {
 
 export const services: Service[] = [
   {
-    title: "Growth Marketing",
+    title: "360 Digital Marketing & Growth Marketing",
     copy: "Performance-driven marketing strategies that translate directly into ROI and user acquisition.",
     icon: "↗",
     tone: "blue",
@@ -55,7 +55,7 @@ export const services: Service[] = [
     tone: "purple",
   },
   {
-    title: "UI/UX Design",
+    title: "Website Development",
     copy: "Premium digital products where aesthetic meets high-conversion user experience architecture.",
     icon: "✣",
     tone: "violet",
@@ -318,19 +318,19 @@ export function ServicesGrid() {
 
 export function Process() {
   const steps = [
-    ["01", "Discovery Call", "Tell us about your idea, goals, and timeline so we can understand your vision and business needs."],
-    ["02", "Research & Strategy", "We analyze your market, competitors, and the best technical approach to shape a practical roadmap."],
-    ["03", "Proposal & Planning", "You receive a detailed scope, timeline, milestones, and transparent pricing before we begin."],
-    ["04", "Design & Development", "Our team builds your solution through agile sprints with demos, feedback, and clear progress updates."],
-    ["05", "Launch & Deploy", "We handle testing, deployment, and a smooth go-live with careful launch support."],
-    ["06", "Continuous Support", "Post-launch maintenance, updates, and growth support keep your product evolving with your business."],
+    ["01", "Discovery Call", "Understand your goals, ideas, and business needs."],
+    ["02", "Research & Strategy", "Analyze your market and create the right plan."],
+    ["03", "Proposal & Planning", "Define scope, timeline, and project details."],
+    ["04", "Design & Development", "Design and build your solution with regular updates."],
+    ["05", "Launch & Deploy", "Test, launch, and ensure everything runs smoothly."],
+    ["06", "Continuous Support", "Provide ongoing updates, maintenance, and growth support."],
   ];
 
   return (
     <section className="section process-section">
       <div className="shell">
         <h2 className="center-title">Your Project in 6 Simple Steps</h2>
-        <p className="section-intro">From your first idea to a live product - here’s how we bring your vision to life.</p>
+        <p className="section-intro">From idea to launch, we guide you through every step.</p>
         <div className="process-line">
           {steps.map(([num, title, copy]) => (
             <div className="process-step" key={num}>
@@ -503,14 +503,12 @@ export function HomePage() {
           <div>
             <Pill>Business Growth Partner</Pill>
             <h1>
-              Build Smarter.
-              <br />
-              <em>Grow Faster.</em>
+              Building Brands That Matter
             </h1>
             <p>
-              Your One-Stop Technology Partner for Software, AI, Automation &
-              Digital Growth. We build scalable products and accelerate revenue.
+              Your One-Stop Technology Partner for Digital Growth.
             </p>
+
             <div className="hero-actions">
               <a className="btn btn-primary" href={bookingUrl} target="_blank" rel="noopener noreferrer">
                 Book Free Consultation →
@@ -623,8 +621,8 @@ export function HomePage() {
       <section className="section">
         <div className="shell chart-card">
           <div>
-            <h2>Data-Driven Decision Making</h2>
-            <p>We don’t guess. We analyze. Our proprietary dashboarding tools give you real-time visibility into your growth funnel, from initial click to final conversion.</p>
+            <h2>Data-Driven Growth</h2>
+            <p>We use real data to understand what works, improve performance, and help your business grow faster.</p>
           </div>
           <div className="chart-lines" aria-hidden="true">
             <div className="chart-kpi">
@@ -700,7 +698,7 @@ export function HomePage() {
               <p>Real projects, tracked the right way—so you can see exactly what changed, and how fast.</p>
             </div>
             <Link className="btn btn-secondary btn-small" href="/work">
-              View All Work
+              View Our Work
             </Link>
           </div>
           <div className="case-grid">
@@ -1109,9 +1107,18 @@ export function ContactPage() {
             <label>Full Name<input defaultValue="John Doe" /></label>
             <label>Email Address<input defaultValue="john@company.com" /></label>
             <label>Company<input defaultValue="Acme Inc." /></label>
-            <label>Project Type<select defaultValue="SaaS Platform"><option>SaaS Platform</option><option>AI Automation</option><option>Mobile App</option></select></label>
+            <label>Project Type
+              <select defaultValue="Digital Marketing">
+                <option>Web Development</option>
+                <option>Mobile Development</option>
+                <option>Digital Marketing</option>
+                <option>360 Marketing</option>
+                <option>SaaS Platform</option>
+                <option>AI Automation</option>
+              </select>
+            </label>
             <div className="budget-row">
-              {["$10k–25k", "$25k–50k", "$50k–100k", "$100k+"].map((budget, index) => (
+              {['LKR 100,000 – 250,000', 'LKR 250,000 – 500,000', 'LKR 500,000 – 1,000,000', 'LKR 1,000,000+'].map((budget, index) => (
                 <button className={index === 2 ? "active" : ""} key={budget} type="button">{budget}</button>
               ))}
             </div>
@@ -1143,11 +1150,11 @@ export function ContactPage() {
       <section className="section">
         <div className="shell booking-card">
           <div>
-            <h2>Book a 1:1 Technical Consultation</h2>
+            <h2>Book a 1:1 Strategic Consultation</h2>
             <p>Skip the back-and-forth emails. Choose a time that works for you and meet with our lead engineers to discuss technical requirements.</p>
             <ul>
               <li>30-minute discovery call</li>
-              <li>Technical feasibility audit</li>
+              <li>Strategic planning session</li>
               <li>Initial roadmap estimation</li>
             </ul>
           </div>

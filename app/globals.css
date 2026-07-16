@@ -2136,10 +2136,11 @@ html[data-theme="light"] .site-footer {
 
 .contact-form {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 24px;
   padding: 42px;
 }
+
 
 .contact-form h2,
 .info-card h2 {

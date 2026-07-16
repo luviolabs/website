@@ -33,7 +33,12 @@ export const metadata: Metadata = {
   title: "Luvio Labs | Software, AI Automation & Growth",
   description:
     "Luvio Labs builds high-performance software, AI automation, and digital growth systems for ambitious businesses.",
+  icons: {
+    icon: "/luvio-icon.png",
+    apple: "/luvio-icon.png",
+  },
 };
+
 
 export default function RootLayout({
   children,
@@ -44,6 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
+      data-theme="dark"
       className={`${sora.variable} ${manrope.variable} ${jetBrainsMono.variable}`}
     >
       <body>
@@ -60,6 +66,8 @@ export default function RootLayout({
 })();`,
           }}
         />
+        <noscript />
+
         <Header />
         <main>{children}</main>
         <PremiumCursor />

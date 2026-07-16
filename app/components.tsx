@@ -169,7 +169,8 @@ export const blogItems: BlogItem[] = [
 export function Footer() {
   return (
     <footer className="site-footer">
-      <div className="shell footer-grid">
+      <div className="shell footer-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+
         <div className="footer-brand">
           <Logo />
           <p>
@@ -306,13 +307,14 @@ export function ServiceCard({ service }: { service: Service }) {
 
 export function ServicesGrid() {
   return (
-    <div className="services-grid">
+    <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
       {services.map((service) => (
         <ServiceCard key={service.title} service={service} />
       ))}
     </div>
   );
 }
+
 
 export function Process() {
   const steps = [
@@ -496,7 +498,8 @@ export function HomePage() {
   return (
     <>
       <section className="home-hero">
-        <div className="shell home-hero-grid">
+        <div className="shell home-hero-grid grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] gap-10 sm:gap-14 lg:gap-16 items-center">
+
           <div>
             <Pill>Business Growth Partner</Pill>
             <h1>
@@ -516,7 +519,8 @@ export function HomePage() {
                 Chat on WhatsApp
               </a>
             </div>
-            <div className="stats-row">
+            <div className="stats-row flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-10">
+
               <strong>
                 <span className="stat-rise">
                   <ContinuousStat value={50} suffix="" durationMs={1600} />

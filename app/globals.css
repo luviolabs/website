@@ -2835,20 +2835,31 @@ html[data-theme="light"] .package-row > span:first-child {
   position: fixed;
   right: 24px;
   bottom: 24px;
+
   width: 56px;
   height: 56px;
   border-radius: 999px;
+
   z-index: 9999;
   display: grid;
   place-items: center;
+
   background: #25D366;
-  box-shadow:
-    0 10px 25px rgba(37, 211, 102, 0.25),
-    0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: transform 250ms ease, box-shadow 250ms ease;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+
   will-change: transform;
   cursor: pointer;
   overflow: hidden;
+
+  /* keep ripple purely visual */
+  pointer-events: auto;
+
+  /* Idle pulse is handled via the @keyframes below */
+  animation: whatsappIdlePulse 7s ease-in-out infinite;
 }
 
 @media (min-width: 640px) {
@@ -2869,19 +2880,20 @@ html[data-theme="light"] .package-row > span:first-child {
   }
 }
 
-.floating-whatsapp:hover {
-  transform: scale(1.08) translateY(-3px);
-  box-shadow:
-    0 14px 30px rgba(37, 211, 102, 0.30),
-    0 6px 14px rgba(0, 0, 0, 0.10);
-}
-
 .floating-whatsapp__icon {
-  width: 55%;
-  height: 55%;
+  width: 58%;
+  height: 58%;
   display: block;
   color: #fff;
-  will-change: transform;
+}
+
+.floating-whatsapp:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 12px 34px rgba(37, 211, 102, 0.32);
+}
+
+.floating-whatsapp:active {
+  transform: scale(0.95);
 }
 
 /* Click ripple */
@@ -2891,8 +2903,10 @@ html[data-theme="light"] .package-row > span:first-child {
   inset: 0;
   border-radius: inherit;
   background: rgba(255, 255, 255, 0.28);
+
   transform: scale(0);
   opacity: 0;
+
   pointer-events: none;
 }
 
@@ -2914,21 +2928,24 @@ html[data-theme="light"] .package-row > span:first-child {
   }
 }
 
-/* Subtle idle pulse */
+/* Gentle idle pulse: once every ~6–8s */
 @keyframes whatsappIdlePulse {
   0%,
+  78% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+  }
+  86% {
+    transform: scale(1.04);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.30);
+  }
+  92% {
+    transform: scale(1.02);
+  }
   100% {
     transform: scale(1);
-    opacity: 1;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
   }
-  50% {
-    transform: scale(1.06);
-    opacity: 0.9;
-  }
-}
-
-.floating-whatsapp {
-  animation: whatsappIdlePulse 1.2s ease-in-out 0s infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2937,6 +2954,7 @@ html[data-theme="light"] .package-row > span:first-child {
     transition: none;
   }
 }
+
 
 
 

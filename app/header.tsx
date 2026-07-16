@@ -45,7 +45,11 @@ export function Header() {
     <header className="site-header">
       <div className="shell nav-shell">
         <Logo />
-        <nav className={`nav-links ${isOpen ? "is-open" : ""}`} aria-label="Main navigation">
+        <nav
+          className={`nav-links ${isOpen ? "is-open" : ""}`}
+          aria-label="Main navigation"
+        >
+
           {navItems.map(([label, href]) => (
             <Link
               aria-current={pathname === href ? "page" : undefined}
@@ -82,9 +86,10 @@ export function Header() {
             aria-expanded={isOpen}
             onClick={() => setIsOpen((value) => !value)}
           >
-            <span />
-            <span />
+            <span className="block w-[16px] h-[2px] rounded-full bg-current" />
+            <span className="block w-[22px] h-[2px] rounded-full bg-current opacity-90" />
           </button>
+
         </div>
       </div>
     </header>

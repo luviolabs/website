@@ -34,8 +34,9 @@ export const metadata: Metadata = {
   description:
     "Luvio Labs builds high-performance software, AI automation, and digital growth systems for ambitious businesses.",
   icons: {
-    icon: "/luvio-icon.png",
-    apple: "/luvio-icon.png",
+    icon: "/assets/luvio-favicon.png?v=2",
+    shortcut: "/assets/luvio-favicon.png?v=2",
+    apple: "/assets/luvio-favicon.png?v=2",
   },
 };
 

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Logo } from "./logo";
 import { ContinuousStat } from "./components/continuous-stat";
 import { blogItems as blogPosts } from "./blogs/data";
+import { jobOpenings, getWhatsAppApplyLink } from "../data/careers";
 
 const bookingUrl = "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2x72QaNcN_HMzss85moSMFndIvRyNmczgcgCTWAfUFm8T0OdQCsGdwB8azt-wm2_hlDrJsXL6y";
 const whatsappUrl = "https://api.whatsapp.com/send/?phone=94766433434&text&type=phone_number&app_absent=0";
@@ -949,12 +950,8 @@ export function CareersPage() {
     ["Real Impact", "Your code and decisions affect millions of users. We solve problems that matter.", "◉", "green"],
     ["Learning Environment", "Continuous growth through mentoring, technical deep-dives, and challenging work.", "▰", "gold"],
   ];
-  const roles = [
-    ["Full-time", "Remote-friendly", "Software Engineer", "Build scalable backends and resilient distributed systems. You'll work with Go, Rust, and Kubernetes to handle massive traffic."],
-    ["Product", "London / Remote", "UI/UX Designer", "Craft beautiful, intuitive interfaces for complex data workflows. We value clean aesthetics and functional excellence."],
-    ["Deep Tech", "New York HQ", "AI Engineer", "Integrate LLMs and predictive models into core product features. Experience with PyTorch and productionizing ML is key."],
-    ["Marketing", "Remote", "Growth Marketer", "Scale our user base through data-driven experiments and community initiatives. We're looking for a creative strategist."],
-  ];
+
+  const hasJobs = jobOpenings.length > 0;
 
   return (
     <>
@@ -988,27 +985,95 @@ export function CareersPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Open Roles / Job Listings ── */}
       <section className="section" id="open-roles">
         <div className="shell">
           <div className="section-heading split">
             <div>
               <h2>Open Roles</h2>
-              <p>We&apos;re looking for world-class talent to help us redefine the digital infrastructure. Check out our current openings.</p>
+              <p>
+                {hasJobs
+                  ? "We&apos;re looking for world-class talent to help us redefine the digital infrastructure. Check out our current openings."
+                  : "We don&apos;t have any open positions right now, but we&apos;re always on the lookout for great talent."}
+              </p>
             </div>
-            <FilterPills items={["All Roles", "Engineering", "Design"]} />
           </div>
-          <div className="roles-grid">
-            {roles.map(([type, place, title, copy]) => (
-              <article className="role-card" key={title}>
-                <div><span>{type}</span><em>{place}</em></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <a href="#">Apply for Role ›</a>
-              </article>
-            ))}
-          </div>
+
+          {hasJobs ? (
+            <div className="roles-grid">
+              {jobOpenings.map((job) => (
+                <article className="role-card job-card" key={job.id ?? job.title}>
+                  <div>
+                    <span>{job.type}</span>
+                    <em>{job.location}</em>
+                  </div>
+                  <h3>{job.title}</h3>
+                  <span className="role-department">{job.department}</span>
+                  <p>{job.description}</p>
+
+                  {job.requirements.length > 0 && (
+                    <div className="job-details">
+                      <strong>Requirements</strong>
+                      <ul>
+                        {job.requirements.map((req) => (
+                          <li key={req}>{req}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {job.responsibilities.length > 0 && (
+                    <div className="job-details">
+                      <strong>Responsibilities</strong>
+                      <ul>
+                        {job.responsibilities.map((resp) => (
+                          <li key={resp}>{resp}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <a
+                    className="btn btn-primary apply-btn"
+                    href={getWhatsAppApplyLink(job.title)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Apply Now via WhatsApp
+                  </a>
+                </article>
+              ))}
+            </div>
+          ) : (
+            /* ── Empty State ── */
+            <div className="careers-empty">
+              <div className="careers-empty-icon">📭</div>
+              <h3>No openings available at the moment</h3>
+              <p>
+                We appreciate your interest in joining Luvio Labs. While there are no
+                current vacancies, we are always looking to connect with talented
+                individuals. Feel free to reach out to us on WhatsApp or email for
+                future opportunities.
+              </p>
+              <div className="hero-actions" style={{ justifyContent: "center" }}>
+                <a
+                  className="btn btn-primary"
+                  href={getWhatsAppApplyLink("Future Opportunities at Luvio Labs")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Message Us on WhatsApp
+                </a>
+                <a className="btn btn-secondary" href={`mailto:${emailAddress}`}>
+                  Email Us
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
       <section className="section culture-section">
         <div className="shell culture-grid">
           <div className="culture-image">

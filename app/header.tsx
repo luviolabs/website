@@ -19,16 +19,25 @@ const navItems = [
 export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("dark"); // used only for initial button label
 
   useEffect(() => {
     const current = document.documentElement.getAttribute("data-theme");
     if (current === "light" || current === "dark") {
-      // schedule state update to avoid cascading renders warning
-      queueMicrotask(() => setTheme(current));
+      setTheme(current);
     }
   }, []);
 
+  // Prevent background scroll while the mobile menu is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const body = document.body;
+    const prevOverflow = body.style.overflow;
+    body.style.overflow = "hidden";
+    return () => {
+      body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
 
   function toggleTheme() {
     const next: "dark" | "light" = theme === "dark" ? "light" : "dark";
@@ -49,6 +58,7 @@ export function Header() {
           className={`nav-links ${isOpen ? "is-open" : ""}`}
           aria-label="Main navigation"
         >
+
 
           {navItems.map(([label, href]) => (
             <Link
@@ -88,6 +98,7 @@ export function Header() {
           >
             <span className="block w-[16px] h-[2px] rounded-full bg-current" />
             <span className="block w-[22px] h-[2px] rounded-full bg-current opacity-90" />
+            <span className="block w-[18px] h-[2px] rounded-full bg-current opacity-80" />
           </button>
 
         </div>

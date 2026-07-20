@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Logo } from "./logo";
 import { ContinuousStat } from "./components/continuous-stat";
+import { blogItems as blogPosts } from "./blogs/data";
 
 const bookingUrl = "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2x72QaNcN_HMzss85moSMFndIvRyNmczgcgCTWAfUFm8T0OdQCsGdwB8azt-wm2_hlDrJsXL6y";
 const whatsappUrl = "https://api.whatsapp.com/send/?phone=94766433434&text&type=phone_number&app_absent=0";
@@ -23,16 +24,6 @@ type WorkItem = {
   problem: string;
   solution: string;
   image: string;
-};
-
-type BlogItem = {
-  category: string;
-  title: string;
-  copy: string;
-  date: string;
-  time: string;
-  image: string;
-  link: string;
 };
 
 export const services: Service[] = [
@@ -106,63 +97,6 @@ export const workItems: WorkItem[] = [
     problem: "HIPAA compliance hurdles in video conferencing.",
     solution: "End-to-end encrypted RTC protocols with automated auditing.",
     image: "/assets/work-health.png",
-  },
-];
-
-export const blogItems: BlogItem[] = [
-  {
-    category: "AI & Marketing",
-    title: "18 Ways to Integrate AI into Sales and Marketing",
-    copy: "Practical ideas for using AI to personalize outreach, improve conversion, and accelerate pipeline velocity.",
-    date: "Apr 30, 2024",
-    time: "7 min read",
-    image: "/assets/blog-micro.png",
-    link: "https://www.forbes.com/councils/forbesbusinesscouncil/2024/04/30/18-ways-to-integrate-ai-into-sales-and-marketing/",
-  },
-  {
-    category: "Brand & Web",
-    title: "Signs Your Business Needs a Website Redesign",
-    copy: "A clear checklist for spotting the gaps that make your website feel outdated, slow, or conversion-unfriendly.",
-    date: "May 11, 2024",
-    time: "5 min read",
-    image: "/assets/blog-growth.png",
-    link: "https://vizcomsolutions.com/blogs/signs-your-business-needs-a-website-redesign/",
-  },
-  {
-    category: "SEO",
-    title: "SEO in 2026: Fundamentals",
-    copy: "A modern look at the core SEO principles that still matter as search behavior and AI experiences evolve.",
-    date: "Apr 24, 2024",
-    time: "6 min read",
-    image: "/assets/blog-design.png",
-    link: "https://business.adobe.com/blog/seo-in-2026-fundamentals",
-  },
-  {
-    category: "Growth Strategy",
-    title: "The CAC Trap: Why More Leads Won’t Save a Leaky Business",
-    copy: "How to reframe growth so your acquisition engine is profitable instead of just louder.",
-    date: "Mar 08, 2024",
-    time: "6 min read",
-    image: "/assets/blog-growth.png",
-    link: "https://www.linkedin.com/pulse/cac-trap-why-more-leads-wont-save-leaky-business-jeremiah-o-brian-lpgyf/",
-  },
-  {
-    category: "Frontend",
-    title: "Staying Ahead: The Top Micro-Frontend Frameworks of 2024",
-    copy: "An overview of the frameworks and architectural patterns powering scalable frontends in modern product teams.",
-    date: "Feb 18, 2024",
-    time: "8 min read",
-    image: "/assets/blog-micro.png",
-    link: "https://medium.com/@adityajani1/staying-ahead-the-top-micro-frontend-frameworks-of-2024-d7e7026efa24",
-  },
-  {
-    category: "Engineering Leadership",
-    title: "The Autonomous SDLC: How AI Agents Are Restructuring the Engineering Organization",
-    copy: "Why modern engineering teams are shifting from manual execution to AI-assisted orchestration and delivery.",
-    date: "Jan 29, 2024",
-    time: "9 min read",
-    image: "/assets/blog-design.png",
-    link: "https://medium.com/@agusdeluca/the-autonomous-sdlc-how-ai-agents-are-restructuring-the-engineering-organization-c18edc01c29a",
   },
 ];
 
@@ -936,7 +870,15 @@ function FilterPills({ items }: { items: string[] }) {
   );
 }
 
+function getPreviewText(content: Array<{ heading: string; paragraphs: string[] }>) {
+  const paragraphs = content.flatMap((section) => section.paragraphs);
+  const text = paragraphs.join(" ");
+  return text.length > 200 ? `${text.slice(0, 197)}...` : text;
+}
+
 export function BlogsPage() {
+  const featuredPost = blogPosts[0];
+
   return (
     <>
       <Hero
@@ -950,18 +892,19 @@ export function BlogsPage() {
           <FilterPills items={["All Articles", "AI & Automation", "Software Engineering", "Growth Strategy", "Product Design"]} />
           <article className="blog-hero-card">
             <div className="blog-hero-image">
-              <Image src="/assets/blog-featured.png" alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={featuredPost.image} alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
             </div>
             <div>
-              <span className="category">Engineering Leadership&nbsp;&nbsp; · &nbsp;&nbsp;9 min read</span>
-              <h2>The Future of Autonomous Engineering: How AI Agents are Reshaping the SDLC</h2>
-              <p>In the next 24 months, the role of the software engineer will shift from writing code to orchestrating complex AI agents. Here is our framework for the transition.</p>
-              <a className="text-link" href="https://medium.com/@agusdeluca/the-autonomous-sdlc-how-ai-agents-are-restructuring-the-engineering-organization-c18edc01c29a" target="_blank" rel="noopener noreferrer">
+              <span className="category">{featuredPost.category}&nbsp;&nbsp; · &nbsp;&nbsp;{featuredPost.time}</span>
+              <h2>{featuredPost.title}</h2>
+              <p>{featuredPost.copy}</p>
+              <p className="blog-card-preview">{getPreviewText(featuredPost.content)}</p>
+              <Link className="text-link" href={featuredPost.link}>
                 Read article →
-              </a>
+              </Link>
               <div className="author">
                 <span />
-                <b>agustin de luca</b>
+                <b>luvio labs</b>
               </div>
             </div>
           </article>
@@ -974,7 +917,7 @@ export function BlogsPage() {
             <a className="text-link" href="#">View archive →</a>
           </div>
           <div className="blog-grid">
-            {blogItems.map((item) => (
+            {blogPosts.map((item) => (
               <article className="blog-card" key={item.title}>
                 <div className="blog-image">
                   <Image src={item.image} alt="" fill sizes="(max-width: 900px) 100vw, 30vw" />
@@ -983,9 +926,10 @@ export function BlogsPage() {
                   <span className="category">{item.category}<small>{item.time}</small></span>
                   <h3>{item.title}</h3>
                   <p>{item.copy}</p>
-                  <a className="text-link" href={item.link} target="_blank" rel="noopener noreferrer">
+                  <p className="blog-card-preview">{getPreviewText(item.content)}</p>
+                  <Link className="text-link" href={item.link}>
                     Read article →
-                  </a>
+                  </Link>
                   <div><span>{item.date}</span><b>→</b></div>
                 </div>
               </article>

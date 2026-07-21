@@ -117,6 +117,73 @@ button {
   cursor: pointer;
 }
 
+/* ── Premium Interactive Background Effect ── */
+
+.bg-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.bg-effects__orb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  opacity: 0;
+  filter: blur(50px);
+  transition: filter 0.8s ease;
+}
+
+html[data-theme="light"] .bg-effects__orb {
+  filter: blur(50px);
+}
+
+.bg-effects__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Touch devices: reduce orb intensity */
+@media (pointer: coarse) {
+  .bg-effects__orb {
+    width: min(50vw, 400px);
+    height: min(50vw, 400px);
+    opacity: 0 !important; /* override inline style, rely on static gradient only */
+    display: none;
+  }
+
+  .bg-effects__canvas {
+    opacity: 0.5;
+  }
+}
+
+/* Low-performance devices: static fallback via a simple gradient on the container */
+@media (prefers-reduced-motion: reduce) {
+  .bg-effects__orb {
+    opacity: 0.08 !important;
+    transition: none;
+  }
+
+  .bg-effects__canvas {
+    display: none;
+  }
+}
+
+/* ── End Background Effect ── */
+
 /* Premium custom cursor */
 :root {
   --cursor-primary: var(--purple);

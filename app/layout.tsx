@@ -4,6 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Footer } from "./components";
 import { Header } from "./header";
 import { PremiumCursor } from "./components/premium-cursor";
+import { BackgroundEffect } from "./components/background-effects";
 import "./globals.css";
 
 
@@ -79,6 +80,7 @@ export default function RootLayout({
         />
         <noscript />
 
+        <BackgroundEffect />
         <Header />
         <main>{children}</main>
         <PremiumCursor />

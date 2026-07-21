@@ -22,7 +22,7 @@ export const blogItems: BlogPost[] = [
     copy: "Compare SEO and paid advertising to discover which digital marketing strategy delivers the best return on investment for your business in 2026.",
     date: "2026",
     time: "10 min read",
-    image: "/assets/blog-design.png",
+    image: "/assets/SEO vs Paid Advertising Which Is Better for Your Business in 2026.png",
     link: "/blogs/seo-vs-paid-advertising",
     content: [
       {
@@ -172,7 +172,7 @@ export const blogItems: BlogPost[] = [
     copy: "Is your website driving customers away? Discover the top 10 signs your website needs improvement and learn how to increase traffic, leads, and conversions.",
     date: "2026",
     time: "9 min read",
-    image: "/assets/blog-growth.png",
+    image: "/assets/10 Signs Your Website Is Costing You Customers.png",
     link: "/blogs/10-signs-your-website-is-costing-you-customers",
     content: [
       {
@@ -293,7 +293,7 @@ export const blogItems: BlogPost[] = [
     copy: "Learn how Local SEO helps Sri Lankan businesses rank higher on Google, attract nearby customers, and increase enquiries with practical optimization strategies.",
     date: "2026",
     time: "10 min read",
-    image: "/assets/blog-micro.png",
+    image: "/assets/Local SEO for Sri Lankan Businesses (2026).png",
     link: "/blogs/complete-guide-local-seo-sri-lanka",
     content: [
       {
@@ -363,7 +363,7 @@ export const blogItems: BlogPost[] = [
     copy: "Discover why a professional website is essential for business growth in 2026. Learn how it builds trust, improves SEO, and generates more leads for your business.",
     date: "2026",
     time: "7 min read",
-    image: "/assets/blog-growth.png",
+    image: "/assets/Why Every Business Needs a Professional Website in 2026.png",
     link: "/blogs/why-every-business-needs-a-professional-website",
     content: [
       {
@@ -441,7 +441,7 @@ export const blogItems: BlogPost[] = [
     copy: "Discover the hidden risks of child reels, including privacy concerns, digital footprints, online safety issues, and the impact of social media exposure on children.",
     date: "2026",
     time: "11 min read",
-    image: "/assets/blog-micro.png",
+    image: "/assets/The Dark Side of Child Reels Risks of Sharing Kids Online.png",
     link: "/blogs/dark-side-of-child-reels",
     content: [
       {
@@ -590,7 +590,7 @@ export const blogItems: BlogPost[] = [
     copy: "Discover how artificial intelligence is changing digital marketing through automation, personalization, content creation, analytics, and smarter customer experiences.",
     date: "2026",
     time: "11 min read",
-    image: "/assets/blog-design.png",
+    image: "/assets/How AI Impacts Digital Marketing.png",
     link: "/blogs/how-ai-is-transforming-digital-marketing-in-2026",
     content: [
       {

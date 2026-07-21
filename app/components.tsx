@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Logo } from "./logo";
 import { ContinuousStat } from "./components/continuous-stat";
 import { blogItems as blogPosts } from "./blogs/data";
@@ -113,9 +115,9 @@ export function Footer() {
             and strategic growth.
           </p>
           <div className="socials" aria-label="Social links">
-            <SocialIcon type="linkedin" />
-            <SocialIcon type="github" />
-            <SocialIcon type="instagram" />
+            <a href="https://linkedin.com/company/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon type="linkedin" /></a>
+            <a href="https://github.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon type="github" /></a>
+            <a href="https://instagram.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><SocialIcon type="instagram" /></a>
           </div>
         </div>
         <FooterColumn
@@ -766,7 +768,7 @@ export function ServicesPage() {
           </>
         }
       />
-      <section className="section border-top">
+      <section className="section">
         <div className="shell">
           <ServicesGrid />
         </div>
@@ -803,6 +805,19 @@ export function ServicesPage() {
 }
 
 export function WorkPage() {
+  const [workFilter, setWorkFilter] = useState("All Work");
+  const workFilterOptions = ["All Work", "Web Apps", "Mobile Apps", "AI Systems", "Marketing"];
+  const workCategoryMap: Record<string, string[]> = {
+    "All Work": ["E-commerce Brand", "Social Tech", "AI Platform", "Healthcare"],
+    "Web Apps": ["E-commerce Brand"],
+    "Mobile Apps": ["Social Tech"],
+    "AI Systems": ["AI Platform"],
+    "Marketing": ["Healthcare"],
+  };
+  const filteredWork = workItems.filter((item) =>
+    workFilter === "All Work" || (workCategoryMap[workFilter]?.includes(item.eyebrow))
+  );
+
   return (
     <>
       <Hero
@@ -832,9 +847,9 @@ export function WorkPage() {
       </section>
       <section className="section">
         <div className="shell">
-          <FilterPills items={["All Work", "Web Apps", "Mobile Apps", "AI Systems", "Marketing"]} />
+          <FilterPills items={workFilterOptions} active={workFilter} onSelect={setWorkFilter} />
           <div className="work-grid">
-            {workItems.map((item) => (
+            {filteredWork.map((item) => (
               <article className="work-card" key={item.title}>
                 <div className="work-card-top">
                   <span>{item.eyebrow}</span>
@@ -859,11 +874,11 @@ export function WorkPage() {
   );
 }
 
-function FilterPills({ items }: { items: string[] }) {
+function FilterPills({ items, active, onSelect }: { items: string[]; active: string; onSelect: (item: string) => void }) {
   return (
     <div className="filter-pills">
-      {items.map((item, index) => (
-        <button className={index === 0 ? "active" : ""} key={item} type="button">
+      {items.map((item) => (
+        <button className={active === item ? "active" : ""} key={item} type="button" onClick={() => onSelect(item)}>
           {item}
         </button>
       ))}
@@ -878,7 +893,12 @@ function getPreviewText(content: Array<{ heading: string; paragraphs: string[] }
 }
 
 export function BlogsPage() {
-  const featuredPost = blogPosts[0];
+  const [blogFilter, setBlogFilter] = useState("All Articles");
+const blogFilterOptions = ["All Articles", "AI & Marketing", "Digital Marketing", "Web Strategy", "Local SEO", "Digital Parenting", "Web Design"];
+  const filteredBlogs = blogFilter === "All Articles"
+    ? blogPosts
+    : blogPosts.filter((post) => post.category === blogFilter);
+  const featuredPost = filteredBlogs[0];
 
   return (
     <>
@@ -890,7 +910,7 @@ export function BlogsPage() {
       />
       <section className="section blog-feature">
         <div className="shell">
-          <FilterPills items={["All Articles", "AI & Automation", "Software Engineering", "Growth Strategy", "Product Design"]} />
+          <FilterPills items={blogFilterOptions} active={blogFilter} onSelect={setBlogFilter} />
           <article className="blog-hero-card">
             <div className="blog-hero-image">
               <Image src={featuredPost.image} alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
@@ -1101,6 +1121,34 @@ export function CareersPage() {
 }
 
 export function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    projectType: "Web Development",
+    budget: "LKR 500,000 – 1,000,000",
+  });
+
+  const updateField = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const message = `Hi Luvio Labs! I'd like to discuss a project.
+
+Name: ${formData.name || "Not provided"}
+Email: ${formData.email || "Not provided"}
+Company: ${formData.company || "Not provided"}
+Project Type: ${formData.projectType}
+Budget: ${formData.budget}
+
+Looking forward to hearing from you!`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=94766433434&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <>
       <Hero
@@ -1111,13 +1159,13 @@ export function ContactPage() {
       />
       <section className="section contact-section">
         <div className="shell contact-grid">
-          <form className="contact-form">
+          <form className="contact-form" onSubmit={handleSubmit}>
             <h2>Send us a message</h2>
-            <label>Full Name<input defaultValue="John Doe" /></label>
-            <label>Email Address<input defaultValue="john@company.com" /></label>
-            <label>Company<input defaultValue="Acme Inc." /></label>
+            <label>Full Name<input placeholder="Your full name" value={formData.name} onChange={(e) => updateField("name", e.target.value)} required /></label>
+            <label>Email Address<input type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => updateField("email", e.target.value)} required /></label>
+            <label>Company<input placeholder="Company name" value={formData.company} onChange={(e) => updateField("company", e.target.value)} /></label>
             <label>Project Type
-              <select defaultValue="Digital Marketing">
+              <select value={formData.projectType} onChange={(e) => updateField("projectType", e.target.value)}>
                 <option>Web Development</option>
                 <option>Mobile Development</option>
                 <option>Digital Marketing</option>
@@ -1127,11 +1175,18 @@ export function ContactPage() {
               </select>
             </label>
             <div className="budget-row">
-              {['LKR 100,000 – 250,000', 'LKR 250,000 – 500,000', 'LKR 500,000 – 1,000,000', 'LKR 1,000,000+'].map((budget, index) => (
-                <button className={index === 2 ? "active" : ""} key={budget} type="button">{budget}</button>
+              {['LKR 100,000 – 250,000', 'LKR 250,000 – 500,000', 'LKR 500,000 – 1,000,000', 'LKR 1,000,000+'].map((budget) => (
+                <button
+                  className={formData.budget === budget ? "active" : ""}
+                  key={budget}
+                  type="button"
+                  onClick={() => updateField("budget", budget)}
+                >
+                  {budget}
+                </button>
               ))}
             </div>
-            <a className="btn btn-primary submit" href={bookingUrl} target="_blank" rel="noopener noreferrer">Launch Your Project</a>
+            <button className="btn btn-primary submit" type="submit">Launch Your Project</button>
           </form>
           <div className="contact-side">
             <div className="info-card">
@@ -1144,10 +1199,10 @@ export function ContactPage() {
             <div className="info-card">
               <h2>Stay Connected</h2>
               <div className="round-socials">
-                <SocialIcon type="dribbble" />
-                <SocialIcon type="linkedin" />
-                <SocialIcon type="github" />
-                <SocialIcon type="instagram" />
+                <a href="https://dribbble.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><SocialIcon type="dribbble" /></a>
+                <a href="https://linkedin.com/company/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon type="linkedin" /></a>
+                <a href="https://github.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon type="github" /></a>
+                <a href="https://instagram.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><SocialIcon type="instagram" /></a>
                 <a className="social-icon-link" href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                   <SocialIcon type="whatsapp" />
                 </a>

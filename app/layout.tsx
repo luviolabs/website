@@ -56,6 +56,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       data-theme="dark"
       className={`${sora.variable} ${manrope.variable} ${jetBrainsMono.variable}`}
+      suppressHydrationWarning
     >
       <body>
         <script

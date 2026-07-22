@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
 import { FaWhatsapp } from "react-icons/fa";
 import { Footer } from "./components";
@@ -59,8 +60,10 @@ export default function RootLayout({
       className={`${sora.variable} ${manrope.variable} ${jetBrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body>
-        <script
+      <body suppressHydrationWarning>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           // set initial theme as early as possible (before React hydrates)
           dangerouslySetInnerHTML={{
             __html: `(() => {

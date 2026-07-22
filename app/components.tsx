@@ -664,6 +664,18 @@ export function HomePage() {
   );
 }
 
+function CaseCard({ image, title, copy }: { image: string; title: string; copy: string }) {
+  return (
+    <article className="case-card">
+      <div className="case-image">
+        <Image src={image} alt="" fill sizes="(max-width: 900px) 100vw, 30vw" />
+      </div>
+      <h3>{title}</h3>
+      <p>{copy}</p>
+    </article>
+  );
+}
+
 function TrustedLogo({
   brand,
 }: {
@@ -714,29 +726,32 @@ function TrustedLogo({
   return <span className={`trusted-logo trusted-logo-${brand}`}>{logos[brand]}</span>;
 }
 
-function CaseCard({ image, title, copy }: { image: string; title: string; copy: string }) {
-  return (
-    <article className="case-card">
-      <div className="case-image">
-        <Image src={image} alt="" fill sizes="(max-width: 900px) 100vw, 30vw" />
-      </div>
-      <h3>{title}</h3>
-      <p>{copy}</p>
-    </article>
-  );
-}
-
 function Testimonials() {
   const quotes = [
-    ["James Wilson", "CTO, HealthTech", "Luvio Labs transformed our legacy platform into a modern powerhouse. Their AI automation saved us 30+ hours a week."],
-    ["Sarah Chen", "Founder, Green AI", "Finally a partner that understands business first. They don’t just build; they actually help us grow revenue."],
-    ["David Miller", "VP Growth, DataSync", "The speed of execution was incredible. We went from concept to a scaled product in under 3 months."],
+    {
+      name: "Dinesh Perera",
+      role: "Founder, Ceylon Fresh Exports",
+      quote:
+        "Luvio Labs built our entire export management system from scratch. Orders that used to take hours now process in minutes. Our efficiency improved by 60% in the first quarter.",
+    },
+    {
+      name: "Ravindu Silva",
+      role: "Director, AutoParts.lk",
+      quote:
+        "From our e-commerce store to digital marketing, Luvio Labs handles everything. Our online sales grew 5x in 8 months. Their team feels like an extension of our own.",
+    },
+    {
+      name: "Duran Perera",
+      role: "CEO & Founder, RK Construction",
+      quote:
+        "Luvio Labs built our new website and the results have been outstanding. The design is professional, loads fast, and our clients regularly compliment how good it looks. It's made a real difference to how we win new business.",
+    },
   ];
 
   return (
     <section className="section testimonials">
       <div className="shell testimonial-grid">
-        {quotes.map(([name, role, quote]) => (
+        {quotes.map(({ name, role, quote }) => (
           <article className="testimonial-card" key={name}>
             <div className="stars">★★★★★</div>
             <p>“{quote}”</p>

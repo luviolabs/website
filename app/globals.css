@@ -355,6 +355,7 @@ html[data-theme="light"] .site-header {
   letter-spacing: 0.03em;
   white-space: nowrap;
   font-family: var(--font-display);
+  transform: translateY(-1px);
 }
 
 html[data-theme="light"] .logo {
@@ -364,8 +365,8 @@ html[data-theme="light"] .logo {
 
 .logo-mark {
   display: grid;
-  width: 28px;
-  height: 28px;
+  width: auto;
+  height: 32px;
   place-items: center;
 }
 
@@ -2428,13 +2429,13 @@ html[data-theme="light"] .role-card a {
 }
 
 .contact-form h2,
-.contact-form .budget-row,
 .contact-form .submit {
   grid-column: 1 / -1;
 }
 
 .contact-form input,
-.contact-form select {
+.contact-form select,
+.contact-form textarea {
   display: block;
   width: 100%;
   height: 58px;
@@ -2445,13 +2446,60 @@ html[data-theme="light"] .role-card a {
   background: #171717;
   color: #ececf4;
   padding: 0 20px;
+  font-family: var(--font-body);
+}
+
+.contact-form textarea {
+  height: auto;
+  min-height: 120px;
+  padding: 16px 20px;
+  resize: vertical;
 }
 
 html[data-theme="light"] .contact-form input,
-html[data-theme="light"] .contact-form select {
+html[data-theme="light"] .contact-form select,
+html[data-theme="light"] .contact-form textarea {
   background: #f9fafb;
   color: #111827;
   border-color: #d1d5db;
+}
+
+/* Form submission status messages */
+.form-status {
+  grid-column: 1 / -1;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.form-success {
+  border: 1px solid rgba(5, 201, 139, 0.4);
+  background: rgba(5, 201, 139, 0.1);
+  color: var(--green);
+}
+
+html[data-theme="light"] .form-success {
+  background: rgba(5, 201, 139, 0.08);
+  color: #059669;
+}
+
+.form-error {
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  background: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+}
+
+html[data-theme="light"] .form-error {
+  background: rgba(255, 77, 77, 0.08);
+  color: #dc2626;
+}
+
+.contact-form .submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .budget-row {
@@ -2481,13 +2529,84 @@ html[data-theme="light"] .contact-form select {
 
 .info-card {
   padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 90% 10%, rgba(109, 92, 255, 0.06), transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(109, 92, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+.info-card:hover::before {
+  opacity: 1;
+}
+
+html[data-theme="light"] .info-card:hover {
+  box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+}
+
+.info-card h2 {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
 }
 
 .info-row {
   display: grid;
   grid-template-columns: 52px 1fr;
   gap: 18px;
-  margin-top: 28px;
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 14px;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.info-row:hover {
+  background: rgba(109, 92, 255, 0.04);
+  transform: translateX(4px);
+}
+
+html[data-theme="light"] .info-row:hover {
+  background: rgba(109, 92, 255, 0.04);
+}
+
+.info-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 14px;
+  transition: background 200ms ease;
+}
+
+.info-link:hover {
+  background: rgba(109, 92, 255, 0.04);
+}
+
+html[data-theme="light"] .info-link:hover {
+  background: rgba(109, 92, 255, 0.04);
+}
+
+.info-link .info-row {
+  margin-top: 0;
+  padding: 16px;
+}
+
+.info-link .info-row:hover {
+  background: transparent;
+  transform: none;
 }
 
 .info-row > span,
@@ -2500,6 +2619,15 @@ html[data-theme="light"] .contact-form select {
   border-radius: 14px;
   background: #1b1b1b;
   color: var(--violet);
+  font-size: 20px;
+  transition: background 240ms ease, border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
+}
+
+.info-row:hover > span {
+  background: linear-gradient(135deg, rgba(109, 92, 255, 0.15), rgba(109, 92, 255, 0.05));
+  border-color: rgba(109, 92, 255, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(109, 92, 255, 0.12);
 }
 
 html[data-theme="light"] .info-row > span,
@@ -2508,32 +2636,93 @@ html[data-theme="light"] .round-socials span {
   border-color: #e5e7eb;
 }
 
+html[data-theme="light"] .info-row:hover > span {
+  background: linear-gradient(135deg, rgba(109, 92, 255, 0.12), rgba(109, 92, 255, 0.04));
+  border-color: rgba(109, 92, 255, 0.25);
+}
+
+.info-row small {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 2px;
+}
+
 .info-row b {
   display: block;
-  margin-top: 4px;
+  margin-top: 2px;
   color: #f3f0f6;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color 200ms ease;
+}
+
+.info-row:hover b {
+  color: #ffffff;
 }
 
 html[data-theme="light"] .info-row b {
   color: #0f172a;
 }
 
-.round-socials span {
-  border-radius: 50%;
-  color: #fff;
-  font-weight: 900;
+html[data-theme="light"] .info-row:hover b {
+  color: #000000;
 }
 
-html[data-theme="light"] .round-socials span {
-  color: #4f46e5;
+.round-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
 }
 
-.round-socials .social-icon {
+.round-socials a {
+  display: inline-grid;
   width: 48px;
   height: 48px;
-  padding: 14px;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #1b1b1b;
+  color: var(--violet);
+  transition: all 240ms ease;
+}
+
+html[data-theme="light"] .round-socials a {
+  background: #f3f4ff;
+  border-color: #e5e7eb;
+}
+
+.round-socials a:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: rgba(109, 92, 255, 0.4);
+  background: linear-gradient(135deg, rgba(109, 92, 255, 0.15), rgba(109, 92, 255, 0.05));
+  box-shadow: 0 8px 24px rgba(109, 92, 255, 0.18);
+}
+
+html[data-theme="light"] .round-socials a:hover {
+  background: linear-gradient(135deg, rgba(109, 92, 255, 0.12), rgba(109, 92, 255, 0.04));
+  box-shadow: 0 8px 24px rgba(109, 92, 255, 0.10);
+}
+
+.round-socials a .social-icon {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  color: inherit;
+  transition: color 240ms ease;
+}
+
+.round-socials a:hover .social-icon {
+  color: #ffffff;
+}
+
+html[data-theme="light"] .round-socials a:hover .social-icon {
+  color: #4f46e5;
 }
 
 .booking-card {

@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Logo } from "./logo";
 import { ContinuousStat } from "./components/continuous-stat";
+import { blogItems as blogPosts } from "./blogs/data";
+import { jobOpenings, getWhatsAppApplyLink } from "../data/careers";
 
 const bookingUrl = "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2x72QaNcN_HMzss85moSMFndIvRyNmczgcgCTWAfUFm8T0OdQCsGdwB8azt-wm2_hlDrJsXL6y";
 const whatsappUrl = "https://api.whatsapp.com/send/?phone=94766433434&text&type=phone_number&app_absent=0";
@@ -23,16 +27,6 @@ type WorkItem = {
   problem: string;
   solution: string;
   image: string;
-};
-
-type BlogItem = {
-  category: string;
-  title: string;
-  copy: string;
-  date: string;
-  time: string;
-  image: string;
-  link: string;
 };
 
 export const services: Service[] = [
@@ -109,63 +103,6 @@ export const workItems: WorkItem[] = [
   },
 ];
 
-export const blogItems: BlogItem[] = [
-  {
-    category: "AI & Marketing",
-    title: "18 Ways to Integrate AI into Sales and Marketing",
-    copy: "Practical ideas for using AI to personalize outreach, improve conversion, and accelerate pipeline velocity.",
-    date: "Apr 30, 2024",
-    time: "7 min read",
-    image: "/assets/blog-micro.png",
-    link: "https://www.forbes.com/councils/forbesbusinesscouncil/2024/04/30/18-ways-to-integrate-ai-into-sales-and-marketing/",
-  },
-  {
-    category: "Brand & Web",
-    title: "Signs Your Business Needs a Website Redesign",
-    copy: "A clear checklist for spotting the gaps that make your website feel outdated, slow, or conversion-unfriendly.",
-    date: "May 11, 2024",
-    time: "5 min read",
-    image: "/assets/blog-growth.png",
-    link: "https://vizcomsolutions.com/blogs/signs-your-business-needs-a-website-redesign/",
-  },
-  {
-    category: "SEO",
-    title: "SEO in 2026: Fundamentals",
-    copy: "A modern look at the core SEO principles that still matter as search behavior and AI experiences evolve.",
-    date: "Apr 24, 2024",
-    time: "6 min read",
-    image: "/assets/blog-design.png",
-    link: "https://business.adobe.com/blog/seo-in-2026-fundamentals",
-  },
-  {
-    category: "Growth Strategy",
-    title: "The CAC Trap: Why More Leads Won’t Save a Leaky Business",
-    copy: "How to reframe growth so your acquisition engine is profitable instead of just louder.",
-    date: "Mar 08, 2024",
-    time: "6 min read",
-    image: "/assets/blog-growth.png",
-    link: "https://www.linkedin.com/pulse/cac-trap-why-more-leads-wont-save-leaky-business-jeremiah-o-brian-lpgyf/",
-  },
-  {
-    category: "Frontend",
-    title: "Staying Ahead: The Top Micro-Frontend Frameworks of 2024",
-    copy: "An overview of the frameworks and architectural patterns powering scalable frontends in modern product teams.",
-    date: "Feb 18, 2024",
-    time: "8 min read",
-    image: "/assets/blog-micro.png",
-    link: "https://medium.com/@adityajani1/staying-ahead-the-top-micro-frontend-frameworks-of-2024-d7e7026efa24",
-  },
-  {
-    category: "Engineering Leadership",
-    title: "The Autonomous SDLC: How AI Agents Are Restructuring the Engineering Organization",
-    copy: "Why modern engineering teams are shifting from manual execution to AI-assisted orchestration and delivery.",
-    date: "Jan 29, 2024",
-    time: "9 min read",
-    image: "/assets/blog-design.png",
-    link: "https://medium.com/@agusdeluca/the-autonomous-sdlc-how-ai-agents-are-restructuring-the-engineering-organization-c18edc01c29a",
-  },
-];
-
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -178,9 +115,9 @@ export function Footer() {
             and strategic growth.
           </p>
           <div className="socials" aria-label="Social links">
-            <SocialIcon type="linkedin" />
-            <SocialIcon type="github" />
-            <SocialIcon type="instagram" />
+            <a href="https://linkedin.com/company/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon type="linkedin" /></a>
+            <a href="https://github.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon type="github" /></a>
+            <a href="https://instagram.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><SocialIcon type="instagram" /></a>
           </div>
         </div>
         <FooterColumn
@@ -727,6 +664,18 @@ export function HomePage() {
   );
 }
 
+function CaseCard({ image, title, copy }: { image: string; title: string; copy: string }) {
+  return (
+    <article className="case-card">
+      <div className="case-image">
+        <Image src={image} alt="" fill sizes="(max-width: 900px) 100vw, 30vw" />
+      </div>
+      <h3>{title}</h3>
+      <p>{copy}</p>
+    </article>
+  );
+}
+
 function TrustedLogo({
   brand,
 }: {
@@ -777,29 +726,32 @@ function TrustedLogo({
   return <span className={`trusted-logo trusted-logo-${brand}`}>{logos[brand]}</span>;
 }
 
-function CaseCard({ image, title, copy }: { image: string; title: string; copy: string }) {
-  return (
-    <article className="case-card">
-      <div className="case-image">
-        <Image src={image} alt="" fill sizes="(max-width: 900px) 100vw, 30vw" />
-      </div>
-      <h3>{title}</h3>
-      <p>{copy}</p>
-    </article>
-  );
-}
-
 function Testimonials() {
   const quotes = [
-    ["James Wilson", "CTO, HealthTech", "Luvio Labs transformed our legacy platform into a modern powerhouse. Their AI automation saved us 30+ hours a week."],
-    ["Sarah Chen", "Founder, Green AI", "Finally a partner that understands business first. They don’t just build; they actually help us grow revenue."],
-    ["David Miller", "VP Growth, DataSync", "The speed of execution was incredible. We went from concept to a scaled product in under 3 months."],
+    {
+      name: "Dinesh Perera",
+      role: "Founder, Ceylon Fresh Exports",
+      quote:
+        "Luvio Labs built our entire export management system from scratch. Orders that used to take hours now process in minutes. Our efficiency improved by 60% in the first quarter.",
+    },
+    {
+      name: "Ravindu Silva",
+      role: "Director, AutoParts.lk",
+      quote:
+        "From our e-commerce store to digital marketing, Luvio Labs handles everything. Our online sales grew 5x in 8 months. Their team feels like an extension of our own.",
+    },
+    {
+      name: "Duran Perera",
+      role: "CEO & Founder, RK Construction",
+      quote:
+        "Luvio Labs built our new website and the results have been outstanding. The design is professional, loads fast, and our clients regularly compliment how good it looks. It's made a real difference to how we win new business.",
+    },
   ];
 
   return (
     <section className="section testimonials">
       <div className="shell testimonial-grid">
-        {quotes.map(([name, role, quote]) => (
+        {quotes.map(({ name, role, quote }) => (
           <article className="testimonial-card" key={name}>
             <div className="stars">★★★★★</div>
             <p>“{quote}”</p>
@@ -831,7 +783,7 @@ export function ServicesPage() {
           </>
         }
       />
-      <section className="section border-top">
+      <section className="section">
         <div className="shell">
           <ServicesGrid />
         </div>
@@ -868,6 +820,19 @@ export function ServicesPage() {
 }
 
 export function WorkPage() {
+  const [workFilter, setWorkFilter] = useState("All Work");
+  const workFilterOptions = ["All Work", "Web Apps", "Mobile Apps", "AI Systems", "Marketing"];
+  const workCategoryMap: Record<string, string[]> = {
+    "All Work": ["E-commerce Brand", "Social Tech", "AI Platform", "Healthcare"],
+    "Web Apps": ["E-commerce Brand"],
+    "Mobile Apps": ["Social Tech"],
+    "AI Systems": ["AI Platform"],
+    "Marketing": ["Healthcare"],
+  };
+  const filteredWork = workItems.filter((item) =>
+    workFilter === "All Work" || (workCategoryMap[workFilter]?.includes(item.eyebrow))
+  );
+
   return (
     <>
       <Hero
@@ -897,9 +862,9 @@ export function WorkPage() {
       </section>
       <section className="section">
         <div className="shell">
-          <FilterPills items={["All Work", "Web Apps", "Mobile Apps", "AI Systems", "Marketing"]} />
+          <FilterPills items={workFilterOptions} active={workFilter} onSelect={setWorkFilter} />
           <div className="work-grid">
-            {workItems.map((item) => (
+            {filteredWork.map((item) => (
               <article className="work-card" key={item.title}>
                 <div className="work-card-top">
                   <span>{item.eyebrow}</span>
@@ -924,11 +889,11 @@ export function WorkPage() {
   );
 }
 
-function FilterPills({ items }: { items: string[] }) {
+function FilterPills({ items, active, onSelect }: { items: string[]; active: string; onSelect: (item: string) => void }) {
   return (
     <div className="filter-pills">
-      {items.map((item, index) => (
-        <button className={index === 0 ? "active" : ""} key={item} type="button">
+      {items.map((item) => (
+        <button className={active === item ? "active" : ""} key={item} type="button" onClick={() => onSelect(item)}>
           {item}
         </button>
       ))}
@@ -936,7 +901,20 @@ function FilterPills({ items }: { items: string[] }) {
   );
 }
 
+function getPreviewText(content: Array<{ heading: string; paragraphs: string[] }>) {
+  const paragraphs = content.flatMap((section) => section.paragraphs);
+  const text = paragraphs.join(" ");
+  return text.length > 200 ? `${text.slice(0, 197)}...` : text;
+}
+
 export function BlogsPage() {
+  const [blogFilter, setBlogFilter] = useState("All Articles");
+const blogFilterOptions = ["All Articles", "AI & Marketing", "Digital Marketing", "Web Strategy", "Local SEO", "Digital Parenting", "Web Design"];
+  const filteredBlogs = blogFilter === "All Articles"
+    ? blogPosts
+    : blogPosts.filter((post) => post.category === blogFilter);
+  const featuredPost = filteredBlogs[0];
+
   return (
     <>
       <Hero
@@ -947,21 +925,22 @@ export function BlogsPage() {
       />
       <section className="section blog-feature">
         <div className="shell">
-          <FilterPills items={["All Articles", "AI & Automation", "Software Engineering", "Growth Strategy", "Product Design"]} />
+          <FilterPills items={blogFilterOptions} active={blogFilter} onSelect={setBlogFilter} />
           <article className="blog-hero-card">
             <div className="blog-hero-image">
-              <Image src="/assets/blog-featured.png" alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={featuredPost.image} alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
             </div>
             <div>
-              <span className="category">Engineering Leadership&nbsp;&nbsp; · &nbsp;&nbsp;9 min read</span>
-              <h2>The Future of Autonomous Engineering: How AI Agents are Reshaping the SDLC</h2>
-              <p>In the next 24 months, the role of the software engineer will shift from writing code to orchestrating complex AI agents. Here is our framework for the transition.</p>
-              <a className="text-link" href="https://medium.com/@agusdeluca/the-autonomous-sdlc-how-ai-agents-are-restructuring-the-engineering-organization-c18edc01c29a" target="_blank" rel="noopener noreferrer">
+              <span className="category">{featuredPost.category}&nbsp;&nbsp; · &nbsp;&nbsp;{featuredPost.time}</span>
+              <h2>{featuredPost.title}</h2>
+              <p>{featuredPost.copy}</p>
+              <p className="blog-card-preview">{getPreviewText(featuredPost.content)}</p>
+              <Link className="text-link" href={featuredPost.link}>
                 Read article →
-              </a>
+              </Link>
               <div className="author">
                 <span />
-                <b>agustin de luca</b>
+                <b>luvio labs</b>
               </div>
             </div>
           </article>
@@ -974,7 +953,7 @@ export function BlogsPage() {
             <a className="text-link" href="#">View archive →</a>
           </div>
           <div className="blog-grid">
-            {blogItems.map((item) => (
+            {blogPosts.map((item) => (
               <article className="blog-card" key={item.title}>
                 <div className="blog-image">
                   <Image src={item.image} alt="" fill sizes="(max-width: 900px) 100vw, 30vw" />
@@ -983,9 +962,10 @@ export function BlogsPage() {
                   <span className="category">{item.category}<small>{item.time}</small></span>
                   <h3>{item.title}</h3>
                   <p>{item.copy}</p>
-                  <a className="text-link" href={item.link} target="_blank" rel="noopener noreferrer">
+                  <p className="blog-card-preview">{getPreviewText(item.content)}</p>
+                  <Link className="text-link" href={item.link}>
                     Read article →
-                  </a>
+                  </Link>
                   <div><span>{item.date}</span><b>→</b></div>
                 </div>
               </article>
@@ -1005,12 +985,8 @@ export function CareersPage() {
     ["Real Impact", "Your code and decisions affect millions of users. We solve problems that matter.", "◉", "green"],
     ["Learning Environment", "Continuous growth through mentoring, technical deep-dives, and challenging work.", "▰", "gold"],
   ];
-  const roles = [
-    ["Full-time", "Remote-friendly", "Software Engineer", "Build scalable backends and resilient distributed systems. You'll work with Go, Rust, and Kubernetes to handle massive traffic."],
-    ["Product", "London / Remote", "UI/UX Designer", "Craft beautiful, intuitive interfaces for complex data workflows. We value clean aesthetics and functional excellence."],
-    ["Deep Tech", "New York HQ", "AI Engineer", "Integrate LLMs and predictive models into core product features. Experience with PyTorch and productionizing ML is key."],
-    ["Marketing", "Remote", "Growth Marketer", "Scale our user base through data-driven experiments and community initiatives. We're looking for a creative strategist."],
-  ];
+
+  const hasJobs = jobOpenings.length > 0;
 
   return (
     <>
@@ -1044,27 +1020,95 @@ export function CareersPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Open Roles / Job Listings ── */}
       <section className="section" id="open-roles">
         <div className="shell">
           <div className="section-heading split">
             <div>
               <h2>Open Roles</h2>
-              <p>We&apos;re looking for world-class talent to help us redefine the digital infrastructure. Check out our current openings.</p>
+              <p>
+                {hasJobs
+                  ? "We&apos;re looking for world-class talent to help us redefine the digital infrastructure. Check out our current openings."
+                  : "We don&apos;t have any open positions right now, but we&apos;re always on the lookout for great talent."}
+              </p>
             </div>
-            <FilterPills items={["All Roles", "Engineering", "Design"]} />
           </div>
-          <div className="roles-grid">
-            {roles.map(([type, place, title, copy]) => (
-              <article className="role-card" key={title}>
-                <div><span>{type}</span><em>{place}</em></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <a href="#">Apply for Role ›</a>
-              </article>
-            ))}
-          </div>
+
+          {hasJobs ? (
+            <div className="roles-grid">
+              {jobOpenings.map((job) => (
+                <article className="role-card job-card" key={job.id ?? job.title}>
+                  <div>
+                    <span>{job.type}</span>
+                    <em>{job.location}</em>
+                  </div>
+                  <h3>{job.title}</h3>
+                  <span className="role-department">{job.department}</span>
+                  <p>{job.description}</p>
+
+                  {job.requirements.length > 0 && (
+                    <div className="job-details">
+                      <strong>Requirements</strong>
+                      <ul>
+                        {job.requirements.map((req) => (
+                          <li key={req}>{req}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {job.responsibilities.length > 0 && (
+                    <div className="job-details">
+                      <strong>Responsibilities</strong>
+                      <ul>
+                        {job.responsibilities.map((resp) => (
+                          <li key={resp}>{resp}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <a
+                    className="btn btn-primary apply-btn"
+                    href={getWhatsAppApplyLink(job.title)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Apply Now via WhatsApp
+                  </a>
+                </article>
+              ))}
+            </div>
+          ) : (
+            /* ── Empty State ── */
+            <div className="careers-empty">
+              <div className="careers-empty-icon">📭</div>
+              <h3>No openings available at the moment</h3>
+              <p>
+                We appreciate your interest in joining Luvio Labs. While there are no
+                current vacancies, we are always looking to connect with talented
+                individuals. Feel free to reach out to us on WhatsApp or email for
+                future opportunities.
+              </p>
+              <div className="hero-actions" style={{ justifyContent: "center" }}>
+                <a
+                  className="btn btn-primary"
+                  href={getWhatsAppApplyLink("Future Opportunities at Luvio Labs")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Message Us on WhatsApp
+                </a>
+                <a className="btn btn-secondary" href={`mailto:${emailAddress}`}>
+                  Email Us
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
       <section className="section culture-section">
         <div className="shell culture-grid">
           <div className="culture-image">
@@ -1092,6 +1136,34 @@ export function CareersPage() {
 }
 
 export function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    projectType: "Web Development",
+    budget: "LKR 500,000 – 1,000,000",
+  });
+
+  const updateField = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const message = `Hi Luvio Labs! I'd like to discuss a project.
+
+Name: ${formData.name || "Not provided"}
+Email: ${formData.email || "Not provided"}
+Company: ${formData.company || "Not provided"}
+Project Type: ${formData.projectType}
+Budget: ${formData.budget}
+
+Looking forward to hearing from you!`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=94766433434&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <>
       <Hero
@@ -1102,13 +1174,13 @@ export function ContactPage() {
       />
       <section className="section contact-section">
         <div className="shell contact-grid">
-          <form className="contact-form">
+          <form className="contact-form" onSubmit={handleSubmit}>
             <h2>Send us a message</h2>
-            <label>Full Name<input defaultValue="John Doe" /></label>
-            <label>Email Address<input defaultValue="john@company.com" /></label>
-            <label>Company<input defaultValue="Acme Inc." /></label>
+            <label>Full Name<input placeholder="Your full name" value={formData.name} onChange={(e) => updateField("name", e.target.value)} required /></label>
+            <label>Email Address<input type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => updateField("email", e.target.value)} required /></label>
+            <label>Company<input placeholder="Company name" value={formData.company} onChange={(e) => updateField("company", e.target.value)} /></label>
             <label>Project Type
-              <select defaultValue="Digital Marketing">
+              <select value={formData.projectType} onChange={(e) => updateField("projectType", e.target.value)}>
                 <option>Web Development</option>
                 <option>Mobile Development</option>
                 <option>Digital Marketing</option>
@@ -1118,11 +1190,18 @@ export function ContactPage() {
               </select>
             </label>
             <div className="budget-row">
-              {['LKR 100,000 – 250,000', 'LKR 250,000 – 500,000', 'LKR 500,000 – 1,000,000', 'LKR 1,000,000+'].map((budget, index) => (
-                <button className={index === 2 ? "active" : ""} key={budget} type="button">{budget}</button>
+              {['LKR 100,000 – 250,000', 'LKR 250,000 – 500,000', 'LKR 500,000 – 1,000,000', 'LKR 1,000,000+'].map((budget) => (
+                <button
+                  className={formData.budget === budget ? "active" : ""}
+                  key={budget}
+                  type="button"
+                  onClick={() => updateField("budget", budget)}
+                >
+                  {budget}
+                </button>
               ))}
             </div>
-            <a className="btn btn-primary submit" href={bookingUrl} target="_blank" rel="noopener noreferrer">Launch Your Project</a>
+            <button className="btn btn-primary submit" type="submit">Launch Your Project</button>
           </form>
           <div className="contact-side">
             <div className="info-card">
@@ -1135,10 +1214,10 @@ export function ContactPage() {
             <div className="info-card">
               <h2>Stay Connected</h2>
               <div className="round-socials">
-                <SocialIcon type="dribbble" />
-                <SocialIcon type="linkedin" />
-                <SocialIcon type="github" />
-                <SocialIcon type="instagram" />
+                <a href="https://dribbble.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><SocialIcon type="dribbble" /></a>
+                <a href="https://linkedin.com/company/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon type="linkedin" /></a>
+                <a href="https://github.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon type="github" /></a>
+                <a href="https://instagram.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><SocialIcon type="instagram" /></a>
                 <a className="social-icon-link" href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                   <SocialIcon type="whatsapp" />
                 </a>

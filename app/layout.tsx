@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
 import { FaWhatsapp } from "react-icons/fa";
 import { Footer } from "./components";
 import { Header } from "./header";
 import { PremiumCursor } from "./components/premium-cursor";
+import { BackgroundEffect } from "./components/background-effects";
 import "./globals.css";
 
 
@@ -33,6 +35,10 @@ export const metadata: Metadata = {
   title: "Luvio Labs | Software, AI Automation & Growth",
   description:
     "Luvio Labs builds high-performance software, AI automation, and digital growth systems for ambitious businesses.",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
   icons: {
     icon: "/assets/luvio-favicon.png?v=2",
     shortcut: "/assets/luvio-favicon.png?v=2",
@@ -52,23 +58,32 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       data-theme="dark"
       className={`${sora.variable} ${manrope.variable} ${jetBrainsMono.variable}`}
+      suppressHydrationWarning
     >
-      <body>
-        <script
-          // set initial theme as early as possible
+      <body suppressHydrationWarning>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          // set initial theme as early as possible (before React hydrates)
           dangerouslySetInnerHTML={{
             __html: `(() => {
   try {
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
+    const theme = stored === 'light' || stored === 'dark'
+      ? stored
+      : (prefersDark ? 'dark' : 'light');
+
+    // Only set if different to reduce DOM churn during hydration.
+    const current = document.documentElement.getAttribute('data-theme');
+    if (current !== theme) document.documentElement.setAttribute('data-theme', theme);
   } catch (e) {}
 })();`,
           }}
         />
         <noscript />
 
+        <BackgroundEffect />
         <Header />
         <main>{children}</main>
         <PremiumCursor />

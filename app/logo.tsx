@@ -10,7 +10,8 @@ export function Logo() {
           <path d="M31 16.5 36 13.5M13 27.5 8 30.5" />
         </svg>
       </span>
-      <span>LUVIO LABS</span>
+      <span className="logo-text">LUVIO LABS</span>
     </Link>
   );
 }
+

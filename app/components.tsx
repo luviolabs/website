@@ -154,7 +154,7 @@ export function Footer() {
         <span>© 2024 Luvio Labs. All rights reserved.</span>
         <span>
           <a href="/terms">Terms of Service</a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="/privacy">Cookie Policy</a>
+          <a href="/privacy">Privacy Policy</a>
         </span>
       </div>
     </footer>
@@ -1236,7 +1236,6 @@ export function ContactPage() {
             <div className="info-card">
               <h2>Stay Connected</h2>
               <div className="round-socials">
-                <a href="https://dribbble.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><SocialIcon type="dribbble" /></a>
                 <a href="https://linkedin.com/company/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon type="linkedin" /></a>
                 <a href="https://github.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon type="github" /></a>
                 <a href="https://instagram.com/luviolabs" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><SocialIcon type="instagram" /></a>
@@ -1274,7 +1273,7 @@ export function ContactPage() {
 function SocialIcon({
   type,
 }: {
-  type: "linkedin" | "github" | "instagram" | "dribbble" | "whatsapp";
+  type: "linkedin" | "github" | "instagram" | "whatsapp";
 }) {
   const paths = {
     linkedin: (
@@ -1296,14 +1295,6 @@ function SocialIcon({
         <rect x="6" y="6" width="18" height="18" rx="5" />
         <circle cx="15" cy="15" r="4" />
         <path d="M20.5 9.5h.1" />
-      </>
-    ),
-    dribbble: (
-      <>
-        <circle cx="15" cy="15" r="9" />
-        <path d="M7.5 12.2c4.4 1 8.4.5 12.4-3" />
-        <path d="M11.2 23.2c1.4-5.2 4.2-8.7 9.7-10.2" />
-        <path d="M10 7.8c3.5 3.5 6.2 8.5 7.6 15.2" />
       </>
     ),
     whatsapp: (

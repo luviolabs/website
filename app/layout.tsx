@@ -40,9 +40,9 @@ export const metadata: Metadata = {
     initialScale: 1,
   },
   icons: {
-    icon: "/assets/luvio-favicon.png?v=2",
-    shortcut: "/assets/luvio-favicon.png?v=2",
-    apple: "/assets/luvio-favicon.png?v=2",
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.ico", sizes: "48x48" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
 };
 
@@ -60,6 +60,11 @@ export default function RootLayout({
       className={`${sora.variable} ${manrope.variable} ${jetBrainsMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+      </head>
       <body suppressHydrationWarning>
         <Script
           id="theme-init"

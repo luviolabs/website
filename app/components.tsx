@@ -7,6 +7,7 @@ import { Logo } from "./logo";
 import { ContinuousStat } from "./components/continuous-stat";
 import { blogItems as blogPosts } from "./blogs/data";
 import { jobOpenings, getWhatsAppApplyLink } from "../data/careers";
+import { sendContactForm } from "./lib/emailjs";
 
 const bookingUrl = "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2x72QaNcN_HMzss85moSMFndIvRyNmczgcgCTWAfUFm8T0OdQCsGdwB8azt-wm2_hlDrJsXL6y";
 const whatsappUrl = "https://api.whatsapp.com/send/?phone=94766433434&text&type=phone_number&app_absent=0";
@@ -123,10 +124,10 @@ export function Footer() {
         <FooterColumn
           title="Services"
           links={[
-            { label: "IT Solutions", href: "#" },
-            { label: "Business Consultancy", href: "#" },
-            { label: "Digital Marketing", href: "#" },
-            { label: "Investment Match-Making", href: "#" },
+            { label: "IT Solutions", href: "/services" },
+            { label: "Business Consultancy", href: "/services" },
+            { label: "Digital Marketing", href: "/services" },
+            { label: "Investment Match-Making", href: "/services" },
           ]}
         />
         <FooterColumn
@@ -1139,29 +1140,46 @@ export function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
-    projectType: "Web Development",
-    budget: "LKR 500,000 – 1,000,000",
+    phone: "",
+    businessName: "",
+    businessCategory: "Technology / Software",
+    message: "",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
   const updateField = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const message = `Hi Luvio Labs! I'd like to discuss a project.
+    setSubmitting(true);
+    setSubmitStatus("idle");
 
-Name: ${formData.name || "Not provided"}
-Email: ${formData.email || "Not provided"}
-Company: ${formData.company || "Not provided"}
-Project Type: ${formData.projectType}
-Budget: ${formData.budget}
-
-Looking forward to hearing from you!`;
-
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=94766433434&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
-    window.open(whatsappUrl, "_blank");
+    try {
+      await sendContactForm({
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        businessName: formData.businessName,
+        businessCategory: formData.businessCategory,
+        message: formData.message,
+      });
+      setSubmitStatus("success");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        businessName: "",
+        businessCategory: "Technology / Software",
+        message: "",
+      });
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -1176,32 +1194,36 @@ Looking forward to hearing from you!`;
         <div className="shell contact-grid">
           <form className="contact-form" onSubmit={handleSubmit}>
             <h2>Send us a message</h2>
+
+            {submitStatus === "success" && (
+              <div className="form-status form-success">✓ Your message has been sent successfully! We&apos;ll get back to you shortly.</div>
+            )}
+            {submitStatus === "error" && (
+              <div className="form-status form-error">✕ Something went wrong. Please try again or email us directly at hello@luviolabs.com.</div>
+            )}
+
             <label>Full Name<input placeholder="Your full name" value={formData.name} onChange={(e) => updateField("name", e.target.value)} required /></label>
             <label>Email Address<input type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => updateField("email", e.target.value)} required /></label>
-            <label>Company<input placeholder="Company name" value={formData.company} onChange={(e) => updateField("company", e.target.value)} /></label>
-            <label>Project Type
-              <select value={formData.projectType} onChange={(e) => updateField("projectType", e.target.value)}>
-                <option>Web Development</option>
-                <option>Mobile Development</option>
-                <option>Digital Marketing</option>
-                <option>360 Marketing</option>
-                <option>SaaS Platform</option>
-                <option>AI Automation</option>
+            <label>Phone<input type="tel" placeholder="+94 77 123 4567" value={formData.phone} onChange={(e) => updateField("phone", e.target.value)} required /></label>
+            <label>Business Name<input placeholder="Your business or startup name" value={formData.businessName} onChange={(e) => updateField("businessName", e.target.value)} required /></label>
+            <label>Business Category / Industry
+              <select value={formData.businessCategory} onChange={(e) => updateField("businessCategory", e.target.value)}>
+                <option>Technology / Software</option>
+                <option>Construction / Real Estate</option>
+                <option>Cafe & Restaurants</option>
+                <option>Travel & Tourism</option>
+                <option>Educational Tech</option>
+                <option>Healthcare</option>
+                <option>E-commerce / Retail</option>
+                <option>Finance & Banking</option>
+                <option>Media & Entertainment</option>
+                <option>Other</option>
               </select>
             </label>
-            <div className="budget-row">
-              {['LKR 100,000 – 250,000', 'LKR 250,000 – 500,000', 'LKR 500,000 – 1,000,000', 'LKR 1,000,000+'].map((budget) => (
-                <button
-                  className={formData.budget === budget ? "active" : ""}
-                  key={budget}
-                  type="button"
-                  onClick={() => updateField("budget", budget)}
-                >
-                  {budget}
-                </button>
-              ))}
-            </div>
-            <button className="btn btn-primary submit" type="submit">Launch Your Project</button>
+            <label>Message<textarea rows={4} placeholder="Tell us about your project, goals, and how we can help..." value={formData.message} onChange={(e) => updateField("message", e.target.value)} required /></label>
+            <button className="btn btn-primary submit" type="submit" disabled={submitting}>
+              {submitting ? "Sending..." : "Launch Your Project"}
+            </button>
           </form>
           <div className="contact-side">
             <div className="info-card">

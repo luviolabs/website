@@ -435,8 +435,26 @@ function SocialMediaPackagesSection() {
 export function HomePage() {
   return (
     <>
-      <section className="home-hero">
-        <div className="shell home-hero-grid grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] gap-10 sm:gap-14 lg:gap-16 items-center">
+      <section className="home-hero" style={{ position: "relative", overflow: "hidden" }}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/assets/home-hero.png"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+            opacity: 0.3,
+          }}
+        >
+          <source src="/assets/home%20hero%20video.mp4" type="video/mp4" />
+        </video>
+        <div className="shell home-hero-grid grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] gap-10 sm:gap-14 lg:gap-16 items-center" style={{ position: "relative", zIndex: 1 }}>
 
           <div>
             <Pill>Business Growth Partner</Pill>
@@ -476,9 +494,6 @@ export function HomePage() {
                 <span>Satisfaction</span>
               </strong>
             </div>
-          </div>
-          <div className="hero-visual">
-            <Image src="/assets/home-hero.png" alt="Data analytics dashboard" fill priority sizes="(max-width: 900px) 100vw, 45vw" />
           </div>
         </div>
       </section>

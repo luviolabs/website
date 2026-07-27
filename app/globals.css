@@ -3066,6 +3066,99 @@ html[data-theme="light"] .times button {
   font-size: 18px;
 }
 
+/* ── Hero Background Layers ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.hero-bg__base {
+  position: absolute;
+  inset: 0;
+  background: #06070F;
+}
+
+.hero-bg__aurora {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 60% 55% at 35% 40%, rgba(138, 53, 255, 0.30) 0%, transparent 100%);
+  filter: blur(180px);
+  transform: translateZ(0);
+}
+
+html[data-theme="light"] .hero-bg__aurora {
+  background:
+    radial-gradient(ellipse 60% 55% at 35% 40%, rgba(109, 92, 255, 0.20) 0%, transparent 100%);
+}
+
+.hero-bg__radial {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(109, 75, 255, 0.15) 0%, transparent 70%);
+}
+
+html[data-theme="light"] .hero-bg__radial {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(109, 75, 255, 0.08) 0%, transparent 70%);
+}
+
+.hero-bg__noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+.hero-bg__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (pointer: coarse) {
+  .hero-bg__canvas {
+    opacity: 0.4;
+  }
+
+  .hero-bg__aurora {
+    filter: blur(120px);
+    opacity: 0.7;
+  }
+
+  .hero-bg__noise {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg__aurora {
+    transition: none;
+  }
+
+  .hero-bg__canvas {
+    display: none;
+  }
+
+  .hero-bg__noise {
+    display: none;
+  }
+}
+
+/* ── End Hero Background Layers ── */
+
+
 @media (max-width: 980px) {
   .logo-text {
     display: none;
